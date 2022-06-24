@@ -2,7 +2,7 @@
 function Header() {
 
     return (
-        <>hhheeeaaadddeeerrr</>
+        <>헤더</>
     );
 }
 export default Header;
