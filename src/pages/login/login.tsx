@@ -1,12 +1,43 @@
 import styled from "@emotion/styled";
+import { useState } from "react";
+import React from "react";
 
 function Login() {
+  const [email, setEmail] = useState<string>("");
+  const [pwd, setPwd] = useState<string>("");
+
+  const emailReg =
+    /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+  const pwReg = /(?=.*\d)(?=.*[a-zA-ZS]).{8,}/;
+
+  const loginPossible = () => {
+    if (emailReg.test(email) && pwReg.test(pwd)) {
+      alert("로그인이 성공하였습니다");
+    } else if (email === "") {
+      alert("아이디 항목은 필수 입력 값입니다");
+    } else if (!emailReg.test(email)) {
+      alert("아이디 형식이 틀렸습니다");
+    } else if (pwd === "") {
+      alert("비밀번호 항목은 필수 입력 값입니다");
+    } else if (!pwReg.test(pwd)) {
+      alert("비밀번호 형식이 틀렸습니다");
+    } else {
+      alert("error");
+    }
+  };
   return (
     <Box>
       <Wrapper>
         <Title>로그인</Title>
-        <InputEmail placeholder="이메일"></InputEmail>
-        <InputPWD placeholder="패스워드" type="password"></InputPWD>
+        <InputEmail
+          placeholder="이메일"
+          onChange={(e: any) => setEmail(e.target.value)}
+        ></InputEmail>
+        <InputPWD
+          placeholder="패스워드"
+          type="password"
+          onChange={(e: any) => setPwd(e.target.value)}
+        ></InputPWD>
         <Option>
           <OptLabel>
             <CheckOpt type="checkbox" />
@@ -16,7 +47,7 @@ function Login() {
             <FindIdPwd>아이디</FindIdPwd>/<FindIdPwd>비밀번호찾기</FindIdPwd>
           </FindDiv>
         </Option>
-        <LoginBtn>로그인</LoginBtn>
+        <LoginBtn onClick={loginPossible}>로그인</LoginBtn>
       </Wrapper>
     </Box>
   );
